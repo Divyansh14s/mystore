@@ -13,6 +13,12 @@ function cartReducer(state, action) {
       }
       return [...state, { ...action.product, qty: 1 }];
     }
+    case 'REMOVE':
+      return state.filter((i) => i.id !== action.id);
+    case 'SET_QTY':
+      return state
+        .map((i) => (i.id === action.id ? { ...i, qty: action.qty } : i))
+        .filter((i) => i.qty > 0);
     default:
       return state;
   }
@@ -22,9 +28,16 @@ export function CartProvider({ children }) {
   const [items, dispatch] = useReducer(cartReducer, []);
 
   const addToCart = (product) => dispatch({ type: 'ADD', product });
+  const removeFromCart = (id) => dispatch({ type: 'REMOVE', id });
+  const setQty = (id, qty) => dispatch({ type: 'SET_QTY', id, qty });
+
+  const count = items.reduce((sum, i) => sum + i.qty, 0);
+  const subtotal = items.reduce((sum, i) => sum + i.qty * i.price, 0);
 
   return (
-    <CartContext.Provider value={{ items, addToCart }}>
+    <CartContext.Provider
+      value={{ items, addToCart, removeFromCart, setQty, count, subtotal }}
+    >
       {children}
     </CartContext.Provider>
   );
