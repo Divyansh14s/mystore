@@ -1,4 +1,8 @@
+import { useCart } from '../context/CartContext';
+
 export default function ProductCard({ product }) {
+  const { addToCart } = useCart();
+
   return (
     <div className="bg-white border border-line rounded-2xl overflow-hidden flex flex-col">
       <div className="aspect-square bg-[#FBFBF9] flex items-center justify-center p-6">
@@ -14,7 +18,10 @@ export default function ProductCard({ product }) {
 
         <div className="mt-auto flex items-center justify-between pt-2">
           <span className="font-mono text-base">${product.price.toFixed(2)}</span>
-          <button className="px-3 py-1.5 rounded-full bg-ink text-white text-xs hover:bg-accent transition-colors">
+          <button
+            onClick={() => addToCart(product)}
+            className="px-3 py-1.5 rounded-full bg-ink text-white text-xs hover:bg-accent transition-colors"
+          >
             Add to cart
           </button>
         </div>
