@@ -1,10 +1,19 @@
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
 
+  const handleAdd = (e) => {
+    e.preventDefault();
+    addToCart(product);
+  };
+
   return (
-    <div className="bg-white border border-line rounded-2xl overflow-hidden flex flex-col">
+    <Link
+      to={`/product/${product.id}`}
+      className="bg-white border border-line rounded-2xl overflow-hidden flex flex-col hover:shadow-md transition-shadow"
+    >
       <div className="aspect-square bg-[#FBFBF9] flex items-center justify-center p-6">
         <img
           src={product.image}
@@ -19,13 +28,13 @@ export default function ProductCard({ product }) {
         <div className="mt-auto flex items-center justify-between pt-2">
           <span className="font-mono text-base">${product.price.toFixed(2)}</span>
           <button
-            onClick={() => addToCart(product)}
+            onClick={handleAdd}
             className="px-3 py-1.5 rounded-full bg-ink text-white text-xs hover:bg-accent transition-colors"
           >
             Add to cart
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

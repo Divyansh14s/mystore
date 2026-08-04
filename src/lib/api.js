@@ -11,3 +11,9 @@ export async function fetchCategories() {
   if (!res.ok) throw new Error('Failed to load categories');
   return res.json();
 }
+
+export async function fetchProduct(id) {
+  const res = await fetch(`${BASE_URL}/products/${id}`);
+  if (!res.ok) throw new Error('Failed to load product');
+  return res.json();
+}
