@@ -1,5 +1,6 @@
 import { X, Minus, Plus, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 
 export default function CartDrawer({ open, onClose }) {
   const { items, setQty, removeFromCart, subtotal } = useCart();
@@ -55,9 +56,13 @@ export default function CartDrawer({ open, onClose }) {
               <span>Subtotal</span>
               <span className="font-mono">${subtotal.toFixed(2)}</span>
             </div>
-            <button className="w-full bg-ink text-white rounded-full py-3 text-sm hover:bg-accent transition-colors">
-              Checkout
-            </button>
+            <Link
+                to="/checkout"
+                onClick={onClose}
+                className="block w-full text-center bg-ink text-white rounded-full py-3 text-sm hover:bg-accent transition-colors"
+                >
+                Checkout
+            </Link>
           </div>
         )}
       </aside>
