@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import toast from 'react-hot-toast';
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
@@ -7,6 +8,7 @@ export default function ProductCard({ product }) {
   const handleAdd = (e) => {
     e.preventDefault();
     addToCart(product);
+    toast.success(`${product.title.slice(0,25)}${product.title.length > 25 ? '...' : ''} added to cart`);
   };
 
   return (

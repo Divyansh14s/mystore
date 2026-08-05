@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchProduct } from '../lib/api';
 import { useCart } from '../context/CartContext';
+import toast from 'react-hot-toast';
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -38,9 +39,12 @@ export default function ProductDetail() {
           <span className="font-mono text-2xl block mb-6">${product.price.toFixed(2)}</span>
 
           <button
-            onClick={() => addToCart(product)}
+            onClick={() => {
+                addToCart(product);
+                toast.success('Added to cart');
+            }}
             className="bg-ink text-white rounded-full px-6 py-3 text-sm hover:bg-accent transition-colors"
-          >
+            >
             Add to cart
           </button>
         </div>
